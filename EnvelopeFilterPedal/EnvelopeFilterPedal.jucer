@@ -4,8 +4,8 @@
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="l3Kh25" name="EnvelopeFilterPedal">
     <GROUP id="{A029B05F-C05D-FE6A-1C7A-DE113CAA4F11}" name="Source">
-      <FILE id="qEgJiT" name="Biquad.h" compile="0" resource="0" file="../../Downloads/AET5430_SP25-master 3/Biquad.h"/>
-      <FILE id="TdecNz" name="Biquad.cpp" compile="1" resource="0" file="../../Downloads/AET5430_SP25-master 3/Biquad.cpp"/>
+      <FILE id="E331A4" name="Biquad.cpp" compile="1" resource="0" file="Source/Biquad.cpp"/>
+      <FILE id="NeYd34" name="Biquad.h" compile="0" resource="0" file="Source/Biquad.h"/>
       <FILE id="gKYZny" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="Oycv6V" name="PluginProcessor.h" compile="0" resource="0"

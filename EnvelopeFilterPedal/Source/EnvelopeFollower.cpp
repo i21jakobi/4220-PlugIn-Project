@@ -35,7 +35,7 @@
             peak = absSample; // Track peak value
     }
 
-    return peak; // Return the peak value in this block
+    return peak; // Return the peak value
 }
  
     
