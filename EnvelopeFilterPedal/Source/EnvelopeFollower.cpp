@@ -32,7 +32,7 @@
                 {
         float absSample = std::abs(buffer.getSample(channel, i)); // Get absolute value
         if (absSample > peak)
-            peak = absSample; // Track peak value
+            peak = absSample;
     }
 
     return peak; // Return the peak value
