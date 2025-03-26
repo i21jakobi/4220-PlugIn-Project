@@ -10,8 +10,9 @@
 
 #include "EnvelopeFollower.h"
 
-    
-    float calculateRMS (juce::AudioBuffer<float> & buffer, const int channel, const int numSamples){
+
+
+    void EnvelopeFollower::calculateRMS (juce::AudioBuffer<float> & buffer, const int channel, const int numSamples){
         
         float sumSquares = 0.0f;
         
@@ -19,23 +20,22 @@
             sumSquares += buffer.getSample(channel, i) * buffer.getSample(channel, i);
         }
         
-        return std::sqrt(sumSquares/numSamples); // Compute RMS value
+        rms = std::sqrt(sumSquares/numSamples); // Compute RMS value
         
     }
     
     
-    float calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples){
+    void EnvelopeFollower::calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples, float alpha){
         
-        float peak = 0.0f;
+//        float peak = 0.f;
+//        float smoothedPeak = 0.f;
 
-        for (int i = 0; i < numSamples; ++i)
-                {
+        for (int i = 0; i < numSamples; ++i){
         float absSample = std::abs(buffer.getSample(channel, i)); // Get absolute value
-        if (absSample > peak)
-            peak = absSample;
+        smoothedPeak = (alpha * absSample) + (1.0f - alpha) * smoothedPeak;
     }
 
-    return peak; // Return the peak value
+     
 }
- 
+
     

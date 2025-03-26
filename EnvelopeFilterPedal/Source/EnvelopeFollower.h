@@ -10,28 +10,27 @@
 
 #pragma once
 
-#include "JuceHeader.h"
+#include <JuceHeader.h>
+#include "Biquad.h"
 
 class EnvelopeFollower{
     
 public:
     
-    float ProcessRectification(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples);
-    float calculateRMS(float inputSignal);
+    void calculateRMS(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples);
+     
+    void calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples, float alpha);
+    
+    void smoothEnvelope();
     
     
     
     
 private:
-    
-    juce::AudioParameterBool useRMS; // Determines the envelope smoothing type (RMS or Rectification)
-    juce::AudioParameterFloat rmsValue;
-    juce::AudioParameterFloat smoothingFactor;
-    
-    juce::AudioParameterFloat attackTime; // Determines the attack
-    juce::AudioParameterFloat decayTime; // Determines envelope decay
-    juce::AudioParameterFloat envelopeValue;
-    
-    
+
+    float smoothedPeak = 0.0f;
+    float alpha = 0.3f;
+    float rms = 0.0f;
+
 };
 
