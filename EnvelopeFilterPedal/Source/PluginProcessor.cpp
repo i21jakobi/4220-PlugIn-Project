@@ -135,28 +135,29 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
+  
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
+    int N = buffer.getNumSamples();
+    
+    filter.setFreq(freqValue);
+    filter.setQ(filterQValue);
+    filter.setFilterType(filterType);
+    
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer (channel);
         
+        float envelopeValue = envelope.calculatePeak(buffer, channel, N, peakAlpha);
         
-
-        // ..do something to the data...
+        minFreq = 200.0f;
+        maxFreq = 2000.0f;
+        cutoffFreq = minFreq + (maxFreq - minFreq) * envelopeValue;
+        
+        filter.setFreq(cutoffFreq);
+        filter.processBuffer(channelData, N, channel);
+        
     }
 }
 

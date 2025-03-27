@@ -9,6 +9,8 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Biquad.h"
+#include "EnvelopeFollower.h"
 
 //==============================================================================
 /**
@@ -52,8 +54,44 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    static constexpr float FREQ_DEFAULT = 1000.f;
 
+    float freqValue = FREQ_DEFAULT;
+
+    static constexpr float FILTER_AMP_DEFAULT = 0.f;
+
+    float filterAmpValue = FILTER_AMP_DEFAULT;
+
+    static constexpr float FILTER_Q_DEFAULT = 0.7071f;
+
+    float filterQValue = FILTER_Q_DEFAULT;
+
+    static constexpr float MIN_DEFAULT = 100.f;
+    
+    float minFreq = MIN_DEFAULT;
+    
+    static constexpr float MAX_DEFAULT = 1000.f;;
+    
+    float maxFreq = MAX_DEFAULT;
+    
+    static constexpr float ALPHA_DEFAULT = 0.3f;
+    
+    float peakAlpha = ALPHA_DEFAULT;
+    
+    float cutoffFreq;
+    
+    Biquad::FilterType filterType = Biquad::FilterType::LPF;
+    
+    
 private:
+    
+    Biquad filter {Biquad::FilterType::LPF,0.7071f};
+
+    EnvelopeFollower envelope;
+    
+    
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeFilterPedalAudioProcessor)
 };

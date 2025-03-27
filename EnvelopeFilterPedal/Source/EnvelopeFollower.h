@@ -13,17 +13,14 @@
 #include <JuceHeader.h>
 #include "Biquad.h"
 
+
 class EnvelopeFollower{
     
 public:
     
-    void calculateRMS(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples);
+    float calculateRMS(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples);
      
-    void calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples, float alpha);
-    
-    void smoothEnvelope();
-    
-    
+    float calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples, float alpha);
     
     
 private:
@@ -34,3 +31,4 @@ private:
 
 };
 
+ 

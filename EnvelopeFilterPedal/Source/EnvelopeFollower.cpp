@@ -12,7 +12,7 @@
 
 
 
-    void EnvelopeFollower::calculateRMS (juce::AudioBuffer<float> & buffer, const int channel, const int numSamples){
+    float EnvelopeFollower::calculateRMS (juce::AudioBuffer<float> & buffer, const int channel, const int numSamples){
         
         float sumSquares = 0.0f;
         
@@ -22,10 +22,11 @@
         
         rms = std::sqrt(sumSquares/numSamples); // Compute RMS value
         
+        return rms
     }
     
     
-    void EnvelopeFollower::calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples, float alpha){
+    float EnvelopeFollower::calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples, float alpha){
         
 //        float peak = 0.f;
 //        float smoothedPeak = 0.f;
@@ -35,6 +36,7 @@
         smoothedPeak = (alpha * absSample) + (1.0f - alpha) * smoothedPeak;
     }
 
+        return smoothed peak
      
 }
 

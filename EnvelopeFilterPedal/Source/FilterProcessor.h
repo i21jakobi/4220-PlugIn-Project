@@ -11,16 +11,21 @@
 #pragma once
 
 #include "JuceHeader.h"
+#include "Biquad.h"
 
 class FilterProcessor{
     
 public:
+
+  
+
+    
+    
     
 private:
-    std::string filterType;
-    juce::AudioParameterFloat filterResonance;
-    juce::AudioParameterFloat baseCutoff;
-    juce::AudioParameterFloat sensitivity;
-    juce::AudioParameterBool sweepDirection;
+    
+    
+    
+ 
     
 };
