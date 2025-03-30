@@ -63,11 +63,11 @@ public:
 
     float filterAmpValue = FILTER_AMP_DEFAULT;
 
-    static constexpr float FILTER_Q_DEFAULT = 0.7071f;
+    static constexpr float Q_DEFAULT = 0.7071f;
 
-    float filterQValue = FILTER_Q_DEFAULT;
+    float Q = Q_DEFAULT;
 
-    static constexpr float MIN_DEFAULT = 100.f;
+    static constexpr float MIN_DEFAULT = 200.f;
     
     float minFreq = MIN_DEFAULT;
     
@@ -79,7 +79,12 @@ public:
     
     float peakAlpha = ALPHA_DEFAULT;
     
-    float cutoffFreq;
+    static constexpr float SENSITIVITY_DEFAULT = 1.f;
+    
+    float sensitivityScalar = SENSITIVITY_DEFAULT;
+    
+    
+    
     
     Biquad::FilterType filterType = Biquad::FilterType::LPF;
     

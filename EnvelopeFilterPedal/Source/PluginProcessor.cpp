@@ -93,8 +93,8 @@ void EnvelopeFilterPedalAudioProcessor::changeProgramName (int index, const juce
 //==============================================================================
 void EnvelopeFilterPedalAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    filter.setFs(static_cast<float>(sampleRate));
+    
 }
 
 void EnvelopeFilterPedalAudioProcessor::releaseResources()
@@ -142,7 +142,7 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     int N = buffer.getNumSamples();
     
     filter.setFreq(freqValue);
-    filter.setQ(filterQValue);
+    filter.setQ(Q);
     filter.setFilterType(filterType);
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
@@ -151,9 +151,9 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
         
         float envelopeValue = envelope.calculatePeak(buffer, channel, N, peakAlpha);
         
-        minFreq = 200.0f;
-        maxFreq = 2000.0f;
-        cutoffFreq = minFreq + (maxFreq - minFreq) * envelopeValue;
+        float adjustedEnv = envelopeValue * sensitivityScalar;
+        
+        float cutoffFreq = minFreq + (maxFreq - minFreq) * envelopeValue;
         
         filter.setFreq(cutoffFreq);
         filter.processBuffer(channelData, N, channel);

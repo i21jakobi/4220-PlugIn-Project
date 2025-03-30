@@ -22,7 +22,9 @@
         
         rms = std::sqrt(sumSquares/numSamples); // Compute RMS value
         
-        return rms
+        if (numSamples <= 0) return 0.0f;
+        
+        return rms;
     }
     
     
@@ -36,7 +38,7 @@
         smoothedPeak = (alpha * absSample) + (1.0f - alpha) * smoothedPeak;
     }
 
-        return smoothed peak
+        return smoothedPeak;
      
 }
 
