@@ -83,6 +83,7 @@ public:
     
     float sensitivityScalar = SENSITIVITY_DEFAULT;
     
+    float cutoffFreq;
     
     
     

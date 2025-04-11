@@ -15,6 +15,8 @@
 /**
 */
 class EnvelopeFilterPedalAudioProcessorEditor  : public juce::AudioProcessorEditor
+//                                                 public juce::Button::Listener,
+//                                                 public juce::Slider::Listener
 {
 public:
     EnvelopeFilterPedalAudioProcessorEditor (EnvelopeFilterPedalAudioProcessor&);
@@ -23,11 +25,35 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+//    void buttonClicked (juce::Button*) override; // provide implementation for pure virtual function
+//    
+//    void sliderValueChanged (juce::Slider *) override;
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     EnvelopeFilterPedalAudioProcessor& audioProcessor;
+    
+    juce::ToggleButton bypassButton;
+    
+    juce::ToggleButton sweepDirection;
+    
+    juce::ToggleButton filterType;
+    
+    
+    juce::Slider sensitivity;
+    
+    juce::Slider minFreq;
+    
+    juce::Slider maxFreq;
+    
+    juce::Slider resonance;
+    
+    float refWidth = 350.f;
+    float refHeight = 500.f;
+  
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeFilterPedalAudioProcessorEditor)
 };
+

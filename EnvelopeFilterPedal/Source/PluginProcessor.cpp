@@ -150,10 +150,11 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
         auto* channelData = buffer.getWritePointer (channel);
         
         float envelopeValue = envelope.calculatePeak(buffer, channel, N, peakAlpha);
+        //float envelopeValue = envelope.calculateRMS(buffer, channel, N);
         
         float adjustedEnv = envelopeValue * sensitivityScalar;
         
-        float cutoffFreq = minFreq + (maxFreq - minFreq) * envelopeValue;
+        cutoffFreq = minFreq + (maxFreq - minFreq) * adjustedEnv;
         
         filter.setFreq(cutoffFreq);
         filter.processBuffer(channelData, N, channel);

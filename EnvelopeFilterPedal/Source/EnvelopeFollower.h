@@ -26,7 +26,7 @@ public:
 private:
 
     float smoothedPeak = 0.0f;
-    float alpha = 0.3f;
+    float alpha = 0.9f;
     float rms = 0.0f;
 
 };
