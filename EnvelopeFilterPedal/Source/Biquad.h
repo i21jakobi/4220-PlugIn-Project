@@ -87,6 +87,9 @@ private:
     float y1[2] = { 0.0f }; // 1 sample of delay feedback
     float y2[2] = { 0.0f }; // 2 samples of delay feedback
 
+    float d1[2] = { 0.0f };
+    float d2[2] = { 0.0f };
+    
     // Filter coefficients
     float b0 = 1.0f; // initialized to pass signal
     float b1 = 0.0f; // without filtering

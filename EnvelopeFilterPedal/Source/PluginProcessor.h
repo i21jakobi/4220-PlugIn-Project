@@ -63,7 +63,7 @@ public:
 
     float filterAmpValue = FILTER_AMP_DEFAULT;
 
-    static constexpr float Q_DEFAULT = 0.7071f;
+    static constexpr float Q_DEFAULT = 4.7071f;
 
     float Q = Q_DEFAULT;
 
@@ -71,7 +71,7 @@ public:
     
     float minFreq = MIN_DEFAULT;
     
-    static constexpr float MAX_DEFAULT = 1000.f;;
+    static constexpr float MAX_DEFAULT = 10000.f;;
     
     float maxFreq = MAX_DEFAULT;
     
@@ -96,7 +96,7 @@ private:
 
     EnvelopeFollower envelope;
     
-    
+    float smoothedCutoff[2] = {0.f};
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeFilterPedalAudioProcessor)
