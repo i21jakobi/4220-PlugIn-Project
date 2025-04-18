@@ -42,7 +42,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout EnvelopeFilterPedalAudioProc
     
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"MinFreqKnob",1}),"MinFreq",20.f,750.f,50.f));
     
-    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"ResonanceKnob",1}),"Resonance",20.f,750.f,50.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"ResonanceKnob",1}),"Resonance",0.5f, 5.0f, 1.2f));
     
     // Buttons
     
@@ -169,6 +169,10 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
         return;
     
     float currentSensitivity = sensitivitySliderValue.load();  
+    minFreq = minFreqSliderValue.load();
+    maxFreq = maxFreqSliderValue.load();
+    resonance = resonanceSliderValue.load();
+    
     
   
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
