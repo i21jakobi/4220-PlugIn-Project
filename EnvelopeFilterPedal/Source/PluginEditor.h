@@ -21,6 +21,9 @@ class EnvelopeFilterPedalAudioProcessorEditor  : public juce::AudioProcessorEdit
 public:
     EnvelopeFilterPedalAudioProcessorEditor (EnvelopeFilterPedalAudioProcessor&);
     ~EnvelopeFilterPedalAudioProcessorEditor() override;
+    
+    using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
+    using ButtonAttachment = juce::AudioProcessorValueTreeState::ButtonAttachment;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -49,6 +52,10 @@ private:
     juce::Slider maxFreq;
     
     juce::Slider resonance;
+    
+    
+    std::vector<std::unique_ptr<SliderAttachment>> sliderAttachments;
+    std::vector<std::unique_ptr<ButtonAttachment>> buttonAttachments;
     
     float refWidth = 350.f;
     float refHeight = 500.f;

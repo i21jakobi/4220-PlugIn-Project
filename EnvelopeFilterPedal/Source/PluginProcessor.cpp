@@ -19,13 +19,41 @@ EnvelopeFilterPedalAudioProcessor::EnvelopeFilterPedalAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
 #endif
+
+apvts(*this,nullptr,"Params",createParams())
 {
 }
 
 EnvelopeFilterPedalAudioProcessor::~EnvelopeFilterPedalAudioProcessor()
 {
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout EnvelopeFilterPedalAudioProcessor::createParams(){
+    
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+    
+    // Sliders
+    
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"SensitivityKnob",1}),"Sensitivity",-18.f,6.f,0.f));
+      
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"MaxFreqKnob",1}),"MaxFreq",1000.f,20000.f,4000.f));
+    
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"MinFreqKnob",1}),"MinFreq",20.f,750.f,50.f));
+    
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"ResonanceKnob",1}),"Resonance",20.f,750.f,50.f));
+    
+    // Buttons
+    
+    params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"BypassButton",1}),"Bypass",false));
+    
+    params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"SweepDirectionButton",1}),"SweepDirection",false));
+    
+    params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"FilterType",1}),"FilterType",false)); // Make into a 3 stage slider eventually
+    
+    return {params.begin(),params.end()};
+    
 }
 
 //==============================================================================
@@ -135,6 +163,13 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    bool isCurrentlyBypassed = isBypassed.load();
+    
+    if (isCurrentlyBypassed)
+        return;
+    
+    float currentSensitivity = sensitivitySliderValue.load();  
+    
   
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
@@ -142,11 +177,11 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     int N = buffer.getNumSamples();
     
     filter.setFreq(freqValue);
-    filter.setQ(Q);
+    filter.setQ(resonance);
     filter.setFilterType(filterType);
     
     
-    float envelopeValue = envelope.calculatePeak(buffer, 0, N, peakAlpha);
+    float envelopeValue = envelope.calculatePeak(buffer, 0, N, peakAlpha);      // Change to togglable switch
     //float envelopeValue = envelope.calculateRMS(buffer, channel, N);
     
     float adjustedEnv = envelopeValue * 16.f;
@@ -190,12 +225,25 @@ void EnvelopeFilterPedalAudioProcessor::getStateInformation (juce::MemoryBlock& 
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    
+    auto currentState = apvts.copyState();
+    
+    std::unique_ptr<juce::XmlElement> xml (currentState.createXml());
+    
+    copyXmlToBinary(*xml, destData);
+    
 }
 
 void EnvelopeFilterPedalAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    
+    std::unique_ptr<juce::XmlElement> xml (getXmlFromBinary(data, sizeInBytes));
+    
+    juce::ValueTree newTree = juce::ValueTree::fromXml(*xml);
+    
+    apvts.replaceState(newTree);
 }
 
 //==============================================================================

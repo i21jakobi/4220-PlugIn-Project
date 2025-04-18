@@ -55,6 +55,8 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    static constexpr bool BYPASSED_DEFAULT = false;
+    
     static constexpr float FREQ_DEFAULT = 1000.f;
 
     float freqValue = FREQ_DEFAULT;
@@ -63,9 +65,9 @@ public:
 
     float filterAmpValue = FILTER_AMP_DEFAULT;
 
-    static constexpr float Q_DEFAULT = 4.7071f;
+    static constexpr float RESONANCE_DEFAULT = 0.7071f;
 
-    float Q = Q_DEFAULT;
+    float resonance = RESONANCE_DEFAULT;
 
     static constexpr float MIN_DEFAULT = 200.f;
     
@@ -85,18 +87,54 @@ public:
     
     float cutoffFreq;
     
-    
+   
+
     
     Biquad::FilterType filterType = Biquad::FilterType::LPF;
+    
+    
+    juce::AudioProcessorValueTreeState apvts;
+    
+    void sensitivitySliderChanged(float value){
+        sensitivitySliderValue.store(value);
+    }
+    
+    void resonanceSliderChanged(float value){
+        resonanceSliderValue.store(value);
+    }
+    
+    void maxFreqSliderChanged(float value){
+        maxFreqSliderValue.store(value);
+    }
+    
+    void minFreqSliderChanged(float value){
+        minFreqSliderValue.store(value);
+    }
+    
+    
+    void bypassButtonClicked(bool isByp){
+        isBypassed.store(isByp);
+    }
+   
     
     
 private:
     
     Biquad filter {Biquad::FilterType::LPF,0.7071f};
 
-    EnvelopeFollower envelope;
+    EnvelopeFollower envelope; 
     
     float smoothedCutoff[2] = {0.f};
+    
+    std::atomic<float> sensitivitySliderValue;
+    std::atomic<float> resonanceSliderValue;
+    std::atomic<float> maxFreqSliderValue;
+    std::atomic<float> minFreqSliderValue;
+    
+    std::atomic<bool> isBypassed;
+    
+    
+    juce::AudioProcessorValueTreeState::ParameterLayout createParams();
     
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeFilterPedalAudioProcessor)

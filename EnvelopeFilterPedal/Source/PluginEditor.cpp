@@ -17,58 +17,89 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     // editor's size to whatever you need it to be.
     setSize (refWidth, refHeight);
     
-    //bypassButton.addListener(this);
+  
     bypassButton.setBounds(20.f, 20.f, 80.f, 30.f); // x , y, width, height
     bypassButton.setButtonText("Bypass");
-   //bypassButton.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
+    bypassButton.onClick = [this]() {
+        audioProcessor.bypassButtonClicked(bypassButton.getToggleState());
+    };
+    bypassButton.setToggleState(audioProcessor.BYPASSED_DEFAULT, juce::dontSendNotification); // set the initial state "on"
     addAndMakeVisible(bypassButton); // include this on the plugin window
     
-  //  sweepDirection.addListener(this);
+
     sweepDirection.setBounds(135.f, 20.f, 80.f, 30.f); // x , y, width, height
     sweepDirection.setButtonText("Sweep Direction");
-   //sweepDirection.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
+    //sweepDirection.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
     addAndMakeVisible(sweepDirection); // include this on the plugin window
     
-    //filterType.addListener(this);
+
     filterType.setBounds(250.f, 20.f, 80.f, 30.f); // x , y, width, height
     filterType.setButtonText("FilterType");
    //filterType.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
     addAndMakeVisible(filterType); // include this on the plugin window
     
-    //sensitivity.addListener(this);
+  
     sensitivity.setBounds(125.f, 380.f, 100.f, 100.f);
     sensitivity.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     sensitivity.setRange(-18.f, 6.f, .1f);
-    //sensitivity.setValue(audioProcessor.GAIN_DEFAULT);
+    sensitivity.onValueChange = [this](){
+        audioProcessor.sensitivitySliderChanged(sensitivity.getValue());
+    };
+    sensitivity.setValue(audioProcessor.SENSITIVITY_DEFAULT);
     sensitivity.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
     addAndMakeVisible(sensitivity);
     
     
-    //minFreq.addListener(this);
+
     minFreq.setBounds(20.f, 380.f, 80.f, 80.f);
     minFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     minFreq.setRange(-18.f, 6.f, .1f);
-    //sensitivity.setValue(audioProcessor.GAIN_DEFAULT);
+    minFreq.onValueChange = [this](){
+        audioProcessor.minFreqSliderChanged(minFreq.getValue());
+    };
+    minFreq.setValue(audioProcessor.MIN_DEFAULT);
     minFreq.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
     addAndMakeVisible(minFreq);
+
     
-    //maxFreq.addListener(this);
     maxFreq.setBounds(250.f, 380.f, 80.f, 80.f);
     maxFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     maxFreq.setRange(-18.f, 6.f, .1f);
-    //sensitivity.setValue(audioProcessor.GAIN_DEFAULT);
+    maxFreq.onValueChange = [this](){
+        audioProcessor.maxFreqSliderChanged(maxFreq.getValue());
+    };
+    maxFreq.setValue(audioProcessor.MAX_DEFAULT);
     maxFreq.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
     addAndMakeVisible(maxFreq);
     
-    //resonance.addListener(this);
+    
     resonance.setBounds(135.f, 290.f, 80.f, 80.f);
     resonance.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     resonance.setRange(-18.f, 6.f, .1f);
-    //sensitivity.setValue(audioProcessor.GAIN_DEFAULT);
+    resonance.onValueChange = [this](){
+        audioProcessor.resonanceSliderChanged(resonance.getValue());
+    };
+    resonance.setValue(audioProcessor.RESONANCE_DEFAULT);
     resonance.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
     addAndMakeVisible(resonance);
     
     
+    // APVTS TEMPLATE
+    sliderAttachments.emplace_back(std::make_unique<SliderAttachment> 
+                                   (audioProcessor.apvts, "Sensitivity", sensitivity));
+    sliderAttachments.emplace_back(std::make_unique<SliderAttachment>
+                                   (audioProcessor.apvts, "MaxFreqKnob", maxFreq));
+    sliderAttachments.emplace_back(std::make_unique<SliderAttachment>
+                                   (audioProcessor.apvts, "MinFreqKnob", minFreq));
+    sliderAttachments.emplace_back(std::make_unique<SliderAttachment>
+                                   (audioProcessor.apvts, "ResonanceKnob", resonance));
+    
+    
+    buttonAttachments.emplace_back(std::make_unique<ButtonAttachment> (audioProcessor.apvts, "BypassButton", bypassButton));
+    buttonAttachments.emplace_back(std::make_unique<ButtonAttachment> (audioProcessor.apvts, "SweepDirection", sweepDirection));
+    buttonAttachments.emplace_back(std::make_unique<ButtonAttachment> (audioProcessor.apvts, "FilterType", filterType));
+
+
     
    
 }
