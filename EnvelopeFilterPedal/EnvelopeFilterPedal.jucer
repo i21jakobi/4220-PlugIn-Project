@@ -4,6 +4,26 @@
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="l3Kh25" name="EnvelopeFilterPedal">
     <GROUP id="{A029B05F-C05D-FE6A-1C7A-DE113CAA4F11}" name="Source">
+      <GROUP id="{941B9FBA-79DB-DDCA-A192-1EBBB7B59241}" name="Body">
+        <FILE id="NipcBA" name="pedalBody_0001.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/Body/pedalBody_0001.png"/>
+      </GROUP>
+      <GROUP id="{B5838F3D-0A2E-74B0-A6E6-7D56DCAE1B28}" name="spriteSheets">
+        <FILE id="JCxQkl" name="bypass_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/spriteSheets/bypass_sprite.png"/>
+        <FILE id="TnJEE0" name="filterselector_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/spriteSheets/filterselector_sprite.png"/>
+        <FILE id="oaw8MN" name="maxfreq_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/spriteSheets/maxfreq_sprite.png"/>
+        <FILE id="pyyxs1" name="minfreq_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/spriteSheets/minfreq_sprite.png"/>
+        <FILE id="NIFJZR" name="resonance_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/spriteSheets/resonance_sprite.png"/>
+        <FILE id="ExxYlV" name="sensitivity_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/spriteSheets/sensitivity_sprite.png"/>
+        <FILE id="CduUgM" name="sweepDirection_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/spriteSheets/sweepDirection_sprite.png"/>
+      </GROUP>
       <FILE id="E331A4" name="Biquad.cpp" compile="1" resource="0" file="Source/Biquad.cpp"/>
       <FILE id="NeYd34" name="Biquad.h" compile="0" resource="0" file="Source/Biquad.h"/>
       <FILE id="gKYZny" name="PluginProcessor.cpp" compile="1" resource="0"

@@ -17,8 +17,10 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     // editor's size to whatever you need it to be.
     setSize (refWidth, refHeight);
     
+    backgroundImage = juce::ImageCache::getFromMemory(BinaryData::pedalBody_0001_png, BinaryData::pedalBody_0001_pngSize);
+    
   
-    bypassButton.setBounds(20.f, 20.f, 80.f, 30.f); // x , y, width, height
+    bypassButton.setBounds(338 - 40, 150 - 15, 80, 30); // (298, 135, 80, 30)
     bypassButton.setButtonText("Bypass");
     bypassButton.onClick = [this]() {
         audioProcessor.bypassButtonClicked(bypassButton.getToggleState());
@@ -27,19 +29,19 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     addAndMakeVisible(bypassButton); // include this on the plugin window
     
 
-    sweepDirection.setBounds(135.f, 20.f, 80.f, 30.f); // x , y, width, height
+    sweepDirection.setBounds(461 - 40, 150 - 15, 80, 30); // (421, 135, 80, 30)
     sweepDirection.setButtonText("Sweep Direction");
     //sweepDirection.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
     addAndMakeVisible(sweepDirection); // include this on the plugin window
     
 
-    filterType.setBounds(250.f, 20.f, 80.f, 30.f); // x , y, width, height
+    filterType.setBounds(400 - 40, 380 - 15, 80, 30); // (360, 365, 80, 30)
     filterType.setButtonText("FilterType");
    //filterType.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
     addAndMakeVisible(filterType); // include this on the plugin window
     
   
-    sensitivity.setBounds(125.f, 380.f, 100.f, 100.f);
+    sensitivity.setBounds(400 - 50, 630 - 50, 100, 100); // (350, 580, 100, 100)
     sensitivity.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     sensitivity.setRange(-18.f, 6.f, .1f);
     sensitivity.onValueChange = [this](){
@@ -51,7 +53,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     
     
 
-    minFreq.setBounds(20.f, 380.f, 80.f, 80.f);
+    minFreq.setBounds(275 - 50, 550 - 50, 100, 100); // (225, 500, 100, 100)
     minFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     minFreq.setRange(-18.f, 6.f, .1f);
     minFreq.onValueChange = [this](){
@@ -62,7 +64,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     addAndMakeVisible(minFreq);
 
     
-    maxFreq.setBounds(250.f, 380.f, 80.f, 80.f);
+    maxFreq.setBounds(525 - 50, 550 - 50, 100, 100); // (475, 500, 100, 100)
     maxFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     maxFreq.setRange(-18.f, 6.f, .1f);
     maxFreq.onValueChange = [this](){
@@ -73,7 +75,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     addAndMakeVisible(maxFreq);
     
     
-    resonance.setBounds(135.f, 290.f, 80.f, 80.f);
+    resonance.setBounds(400 - 50, 475 - 50, 100, 100); // (350, 425, 100, 100)
     resonance.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     resonance.setRange(-18.f, 6.f, .1f);
     resonance.onValueChange = [this](){
@@ -113,10 +115,14 @@ void EnvelopeFilterPedalAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
+    
     g.setColour (juce::Colours::white);
+    
+    g.drawImage(backgroundImage, getLocalBounds().toFloat());
+
+   
     g.setFont (juce::FontOptions (15.0f));
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+
 }
 
 void EnvelopeFilterPedalAudioProcessorEditor::resized()

@@ -57,8 +57,10 @@ private:
     std::vector<std::unique_ptr<SliderAttachment>> sliderAttachments;
     std::vector<std::unique_ptr<ButtonAttachment>> buttonAttachments;
     
-    float refWidth = 350.f;
-    float refHeight = 500.f;
+    float refWidth = 600.f;
+    float refHeight = 800.f;
+    
+    juce::Image backgroundImage;
   
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EnvelopeFilterPedalAudioProcessorEditor)
