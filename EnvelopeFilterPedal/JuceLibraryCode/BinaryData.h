@@ -11,11 +11,11 @@ namespace BinaryData
     extern const char*   pedalBody_0001_png;
     const int            pedalBody_0001_pngSize = 2705063;
 
-    extern const char*   bypass_sprite_png;
-    const int            bypass_sprite_pngSize = 38440;
-
     extern const char*   filterselector_sprite_png;
     const int            filterselector_sprite_pngSize = 57240;
+
+    extern const char*   bypass_sprite_png;
+    const int            bypass_sprite_pngSize = 38440;
 
     extern const char*   maxfreq_sprite_png;
     const int            maxfreq_sprite_pngSize = 4253174;
@@ -39,13 +39,13 @@ namespace BinaryData
     const int            bypass_switch_0002_pngSize = 19693;
 
     extern const char*   filterType_0001_png;
-    const int            filterType_0001_pngSize = 19640;
+    const int            filterType_0001_pngSize = 19754;
 
     extern const char*   filterType_0002_png;
     const int            filterType_0002_pngSize = 19635;
 
     extern const char*   filterType_0003_png;
-    const int            filterType_0003_pngSize = 19754;
+    const int            filterType_0003_pngSize = 19640;
 
     extern const char*   sweepDirection_0001_png;
     const int            sweepDirection_0001_pngSize = 19794;

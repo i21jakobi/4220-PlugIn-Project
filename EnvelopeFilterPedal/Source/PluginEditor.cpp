@@ -20,6 +20,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     
     backgroundImage = juce::ImageCache::getFromMemory(BinaryData::pedalBody_0001_png, BinaryData::pedalBody_0001_pngSize);
     
+    
 
     
     //Sensitivity
@@ -43,32 +44,52 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     resonance.setLookAndFeel(resonanceKnobLAF.get());
     
     
+    // Toggle Buttons
+    auto bypassImage = juce::ImageCache::getFromMemory(BinaryData::bypass_sprite_png, BinaryData::bypass_sprite_pngSize);
+    auto sweepImage = juce::ImageCache::getFromMemory(BinaryData::sweepDirection_sprite_png, BinaryData::sweepDirection_sprite_pngSize);
+
+    auto* bypassLAF = new CustomKnobLookAndFeel(bypassImage, 2);
+    auto* sweepLAF = new CustomKnobLookAndFeel(sweepImage, 2);
+
+    bypassButton.setLookAndFeel(bypassLAF);
+    sweepDirection.setLookAndFeel(sweepLAF);
+    
+    auto filterSwitchImage = juce::ImageCache::getFromMemory(BinaryData::filterselector_sprite_png, BinaryData::filterselector_sprite_pngSize);
+    auto* filterSwitchLAF = new CustomKnobLookAndFeel(filterSwitchImage, 3);
+
+    
   
-    bypassButton.setBounds(113, 25, 250, 250);    //bypassButton.setButtonText("Bypass");
+   // bypassButton.setBounds(113, 25, 250, 250);    //bypassButton.setButtonText("Bypass");
+    bypassButton.setBounds(113, 20, 250, 250);
+    bypassButton.setClickingTogglesState(true);
     bypassButton.onClick = [this]() {
         audioProcessor.bypassButtonClicked(bypassButton.getToggleState());
     };
-    bypassButton.setToggleState(audioProcessor.BYPASSED_DEFAULT, juce::dontSendNotification); // set the initial state "on"
+    //bypassButton.setToggleState(audioProcessor.BYPASSED_DEFAULT, juce::dontSendNotification); // set the initial state "on"
     addAndMakeVisible(bypassButton); // include this on the plugin window
     
 
-    sweepDirection.setBounds(236, 25, 250, 250);
+   // sweepDirection.setBounds(236, 25, 250, 250);
+    sweepDirection.setBounds(236, 20, 250, 250);
+    sweepDirection.setClickingTogglesState(true);
    //sweepDirection.setButtonText("Sweep Direction");
     //sweepDirection.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
     addAndMakeVisible(sweepDirection); // include this on the plugin window
     
 
-    filterType.setBounds(175, 255, 250, 250);
-   // filterType.setButtonText("FilterType");
-   //filterType.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
-    addAndMakeVisible(filterType); // include this on the plugin window
+    filterType.setLookAndFeel(filterSwitchLAF);
+    filterType.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
+    filterType.setRange(0, 2, 1); // 3 steps: 0, 1, 2
+    filterType.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
+    filterType.setBounds(175, 250, 250, 250);
+    addAndMakeVisible(filterType);
     
   
     //sensitivity.setBounds(400 - 50, 630 - 50, 100, 100); // (350, 580, 100, 100)
     sensitivity.setBounds(175, 505, 250, 250);
     sensitivity.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     sensitivity.setRange(-18.f, 6.f, .1f);
-    sensitivity.onValueChange = [this](){
+    sensitivity.onValueChange = [this] {
         audioProcessor.sensitivitySliderChanged(sensitivity.getValue());
     };
     sensitivity.setValue(audioProcessor.SENSITIVITY_DEFAULT);
@@ -119,12 +140,13 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
                                    (audioProcessor.apvts, "MinFreqKnob", minFreq));
     sliderAttachments.emplace_back(std::make_unique<SliderAttachment>
                                    (audioProcessor.apvts, "ResonanceKnob", resonance));
+    sliderAttachments.emplace_back(std::make_unique<SliderAttachment>
+                                   (audioProcessor.apvts, "FilterType", filterType));
     
     
     buttonAttachments.emplace_back(std::make_unique<ButtonAttachment> (audioProcessor.apvts, "BypassButton", bypassButton));
     buttonAttachments.emplace_back(std::make_unique<ButtonAttachment> (audioProcessor.apvts, "SweepDirection", sweepDirection));
-    buttonAttachments.emplace_back(std::make_unique<ButtonAttachment> (audioProcessor.apvts, "FilterType", filterType));
-
+   
 
     
    

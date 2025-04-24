@@ -50,7 +50,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout EnvelopeFilterPedalAudioProc
     
     params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"SweepDirectionButton",1}),"SweepDirection",false));
     
-    params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"FilterType",1}),"FilterType",false)); // Make into a 3 stage slider eventually
+    //params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"FilterType",1}),"FilterType",false)); // Make into a 3 stage slider eventually
+    
+    params.push_back(std::make_unique<juce::AudioParameterInt>("FilterType", "Filter Type", 0, 2, 0));
+
     
     return {params.begin(),params.end()};
     
@@ -173,7 +176,13 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     maxFreq = maxFreqSliderValue.load();
     resonance = resonanceSliderValue.load();
     
-    
+    int filterTypeIndex = (int)apvts.getRawParameterValue("FilterType")->load();
+
+    switch (filterTypeIndex) {
+        case 0: filter.setFilterType(Biquad::FilterType::LPF); break;
+        case 1: filter.setFilterType(Biquad::FilterType::BPF1); break;
+        case 2: filter.setFilterType(Biquad::FilterType::HPF); break;
+    }
   
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
@@ -194,7 +203,12 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     
     float adjustedEnv = envelopeValue * sensitivity;
     
-    cutoffFreq = minFreq + (maxFreq - minFreq) * adjustedEnv;
+    float sweepUp = apvts.getRawParameterValue("SweepDirectionButton")->load();
+
+    if (sweepUp)
+        cutoffFreq = minFreq + (maxFreq - minFreq) * adjustedEnv;
+    else
+        cutoffFreq = maxFreq - (maxFreq - minFreq) * adjustedEnv;
     
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {

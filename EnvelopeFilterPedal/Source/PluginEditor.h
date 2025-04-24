@@ -44,8 +44,8 @@ private:
     
     juce::ToggleButton sweepDirection;
     
-    juce::ToggleButton filterType;
     
+    juce::Slider filterType;
     
     juce::Slider sensitivity;
     

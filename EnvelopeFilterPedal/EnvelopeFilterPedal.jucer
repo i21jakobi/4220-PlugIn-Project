@@ -12,10 +12,10 @@
               xcodeResource="0"/>
       </GROUP>
       <GROUP id="{B5838F3D-0A2E-74B0-A6E6-7D56DCAE1B28}" name="spriteSheets">
+        <FILE id="PueX9U" name="filterselector_sprite.png" compile="0" resource="1"
+              file="../../PluginBlenderFiles/Assets/Switches/filterType_switch/sprites/filterselector_sprite.png"/>
         <FILE id="JCxQkl" name="bypass_sprite.png" compile="0" resource="1"
               file="../../PluginBlenderFiles/Assets/spriteSheets/bypass_sprite.png"/>
-        <FILE id="TnJEE0" name="filterselector_sprite.png" compile="0" resource="1"
-              file="../../PluginBlenderFiles/Assets/spriteSheets/filterselector_sprite.png"/>
         <FILE id="oaw8MN" name="maxfreq_sprite.png" compile="0" resource="1"
               file="../../PluginBlenderFiles/Assets/spriteSheets/maxfreq_sprite.png"/>
         <FILE id="pyyxs1" name="minfreq_sprite.png" compile="0" resource="1"
