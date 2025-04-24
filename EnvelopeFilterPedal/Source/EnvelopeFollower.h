@@ -19,6 +19,8 @@ class EnvelopeFollower{
 public:
     
     float calculateRMS(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples);
+    
+    
      
     float calculatePeak(juce::AudioBuffer<float> & buffer, const int channel, const int numSamples, float alpha);
     

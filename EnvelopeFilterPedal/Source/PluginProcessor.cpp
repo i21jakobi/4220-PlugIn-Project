@@ -185,10 +185,14 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     filter.setFilterType(filterType);
     
     
-    float envelopeValue = envelope.calculatePeak(buffer, 0, N, peakAlpha);      // Change to togglable switch
-    //float envelopeValue = envelope.calculateRMS(buffer, channel, N);
+    //float envelopeValue = envelope.calculatePeak(buffer, 0, N, peakAlpha);      // Change to togglable switch
+    for (int channel = 0; channel < totalNumInputChannels; ++channel){
+        
+        envelopeValue = envelope.calculateRMS(buffer, channel, N);
+        
+    };
     
-    float adjustedEnv = envelopeValue * 16.f;
+    float adjustedEnv = envelopeValue * sensitivity;
     
     cutoffFreq = minFreq + (maxFreq - minFreq) * adjustedEnv;
     

@@ -83,9 +83,11 @@ public:
     
     static constexpr float SENSITIVITY_DEFAULT = 1.f;
     
-    float sensitivityScalar = SENSITIVITY_DEFAULT;
+    float sensitivity = SENSITIVITY_DEFAULT;
     
     float cutoffFreq;
+    
+    float envelopeValue;
     
    
 
