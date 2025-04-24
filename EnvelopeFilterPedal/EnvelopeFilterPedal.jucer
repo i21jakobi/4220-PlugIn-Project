@@ -4,9 +4,12 @@
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="l3Kh25" name="EnvelopeFilterPedal">
     <GROUP id="{A029B05F-C05D-FE6A-1C7A-DE113CAA4F11}" name="Source">
+      <FILE id="ongOOj" name="CustomKnobLookAndFeel.h" compile="0" resource="0"
+            file="Source/CustomKnobLookAndFeel.h"/>
       <GROUP id="{941B9FBA-79DB-DDCA-A192-1EBBB7B59241}" name="Body">
         <FILE id="NipcBA" name="pedalBody_0001.png" compile="0" resource="1"
-              file="../../PluginBlenderFiles/Assets/Body/pedalBody_0001.png"/>
+              file="../../PluginBlenderFiles/Assets/Body/pedalBody_0001.png"
+              xcodeResource="0"/>
       </GROUP>
       <GROUP id="{B5838F3D-0A2E-74B0-A6E6-7D56DCAE1B28}" name="spriteSheets">
         <FILE id="JCxQkl" name="bypass_sprite.png" compile="0" resource="1"
@@ -41,6 +44,26 @@
       <FILE id="RGw3MB" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="QT6w8l" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+    <GROUP id="{2FF549A6-EFB1-54B7-1538-490CBA5C4A21}" name="cropped_bypass">
+      <FILE id="wvjho4" name="bypass_switch_0001.png" compile="0" resource="1"
+            file="../../PluginBlenderFiles/Assets/Switches/bypass_switch/cropped_bypass/bypass_switch_0001.png"/>
+      <FILE id="pG9VBg" name="bypass_switch_0002.png" compile="0" resource="1"
+            file="../../PluginBlenderFiles/Assets/Switches/bypass_switch/cropped_bypass/bypass_switch_0002.png"/>
+    </GROUP>
+    <GROUP id="{DB77FA8A-78AF-E2BF-6FC2-23E7047B4A55}" name="cropped_filterselector">
+      <FILE id="tLsUcB" name="filterType_0001.png" compile="0" resource="1"
+            file="../../PluginBlenderFiles/Assets/Switches/filterType_switch/cropped_filterselector/filterType_0001.png"/>
+      <FILE id="J9dbKU" name="filterType_0002.png" compile="0" resource="1"
+            file="../../PluginBlenderFiles/Assets/Switches/filterType_switch/cropped_filterselector/filterType_0002.png"/>
+      <FILE id="fL09Pj" name="filterType_0003.png" compile="0" resource="1"
+            file="../../PluginBlenderFiles/Assets/Switches/filterType_switch/cropped_filterselector/filterType_0003.png"/>
+    </GROUP>
+    <GROUP id="{4E372D10-DDAD-ACD3-E49B-B11ACCDE1EC0}" name="cropped_updown">
+      <FILE id="Kv1mP7" name="sweepDirection_0001.png" compile="0" resource="1"
+            file="../../PluginBlenderFiles/Assets/Switches/sweepDirection_switch/cropped_updown/sweepDirection_0001.png"/>
+      <FILE id="KSuFPi" name="sweepDirection_0002.png" compile="0" resource="1"
+            file="../../PluginBlenderFiles/Assets/Switches/sweepDirection_switch/cropped_updown/sweepDirection_0002.png"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

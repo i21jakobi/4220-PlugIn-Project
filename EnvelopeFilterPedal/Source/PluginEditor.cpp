@@ -9,6 +9,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+
 //==============================================================================
 EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor (EnvelopeFilterPedalAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
@@ -19,9 +20,31 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     
     backgroundImage = juce::ImageCache::getFromMemory(BinaryData::pedalBody_0001_png, BinaryData::pedalBody_0001_pngSize);
     
+
+    
+    //Sensitivity
+    auto sensitivityImage = juce::ImageCache::getFromMemory(BinaryData::sensitivity_sprite_png, BinaryData::sensitivity_sprite_pngSize);
+    sensitivityKnobLAF = std::make_unique<CustomKnobLookAndFeel>(sensitivityImage, 125);
+    sensitivity.setLookAndFeel(sensitivityKnobLAF.get());
+    
+    // MaxFreq
+    auto maxfreqImage = juce::ImageCache::getFromMemory(BinaryData::maxfreq_sprite_png, BinaryData::maxfreq_sprite_pngSize);
+    maxFreqKnobLAF = std::make_unique<CustomKnobLookAndFeel>(maxfreqImage, 125);
+    maxFreq.setLookAndFeel(maxFreqKnobLAF.get());
+
+    // MinFreq
+    auto minfreqImage = juce::ImageCache::getFromMemory(BinaryData::minfreq_sprite_png, BinaryData::minfreq_sprite_pngSize);
+    minFreqKnobLAF = std::make_unique<CustomKnobLookAndFeel>(minfreqImage, 125);
+    minFreq.setLookAndFeel(minFreqKnobLAF.get());
+
+    // Resonance
+    auto resonanceImage = juce::ImageCache::getFromMemory(BinaryData::resonance_sprite_png, BinaryData::resonance_sprite_pngSize);
+    resonanceKnobLAF = std::make_unique<CustomKnobLookAndFeel>(resonanceImage, 125);
+    resonance.setLookAndFeel(resonanceKnobLAF.get());
+    
+    
   
-    bypassButton.setBounds(338 - 40, 150 - 15, 80, 30); // (298, 135, 80, 30)
-    bypassButton.setButtonText("Bypass");
+    bypassButton.setBounds(113, 25, 250, 250);    //bypassButton.setButtonText("Bypass");
     bypassButton.onClick = [this]() {
         audioProcessor.bypassButtonClicked(bypassButton.getToggleState());
     };
@@ -29,60 +52,61 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     addAndMakeVisible(bypassButton); // include this on the plugin window
     
 
-    sweepDirection.setBounds(461 - 40, 150 - 15, 80, 30); // (421, 135, 80, 30)
-    sweepDirection.setButtonText("Sweep Direction");
+    sweepDirection.setBounds(236, 25, 250, 250);
+   //sweepDirection.setButtonText("Sweep Direction");
     //sweepDirection.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
     addAndMakeVisible(sweepDirection); // include this on the plugin window
     
 
-    filterType.setBounds(400 - 40, 380 - 15, 80, 30); // (360, 365, 80, 30)
-    filterType.setButtonText("FilterType");
+    filterType.setBounds(175, 255, 250, 250);
+   // filterType.setButtonText("FilterType");
    //filterType.setToggleState(audioProcessor.BYPASSED_DEFAULT, dontSendNotification); // set the initial state "on"
     addAndMakeVisible(filterType); // include this on the plugin window
     
   
-    sensitivity.setBounds(400 - 50, 630 - 50, 100, 100); // (350, 580, 100, 100)
+    //sensitivity.setBounds(400 - 50, 630 - 50, 100, 100); // (350, 580, 100, 100)
+    sensitivity.setBounds(175, 505, 250, 250);
     sensitivity.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     sensitivity.setRange(-18.f, 6.f, .1f);
     sensitivity.onValueChange = [this](){
         audioProcessor.sensitivitySliderChanged(sensitivity.getValue());
     };
     sensitivity.setValue(audioProcessor.SENSITIVITY_DEFAULT);
-    sensitivity.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
+    sensitivity.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(sensitivity);
     
     
 
-    minFreq.setBounds(275 - 50, 550 - 50, 100, 100); // (225, 500, 100, 100)
+    minFreq.setBounds(50, 420, 250, 250);
     minFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     minFreq.setRange(-18.f, 6.f, .1f);
     minFreq.onValueChange = [this](){
         audioProcessor.minFreqSliderChanged(minFreq.getValue());
     };
     minFreq.setValue(audioProcessor.MIN_DEFAULT);
-    minFreq.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
+    minFreq.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(minFreq);
 
     
-    maxFreq.setBounds(525 - 50, 550 - 50, 100, 100); // (475, 500, 100, 100)
+    maxFreq.setBounds(300, 420, 250, 250);
     maxFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     maxFreq.setRange(-18.f, 6.f, .1f);
     maxFreq.onValueChange = [this](){
         audioProcessor.maxFreqSliderChanged(maxFreq.getValue());
     };
     maxFreq.setValue(audioProcessor.MAX_DEFAULT);
-    maxFreq.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
+    maxFreq.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(maxFreq);
     
     
-    resonance.setBounds(400 - 50, 475 - 50, 100, 100); // (350, 425, 100, 100)
+    resonance.setBounds(175, 345, 250, 250);
     resonance.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     resonance.setRange(-18.f, 6.f, .1f);
     resonance.onValueChange = [this](){
         audioProcessor.resonanceSliderChanged(resonance.getValue());
     };
     resonance.setValue(audioProcessor.RESONANCE_DEFAULT);
-    resonance.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::TextBoxBelow, false, 50, 20);
+    resonance.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     addAndMakeVisible(resonance);
     
     

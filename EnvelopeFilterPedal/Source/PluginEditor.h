@@ -10,6 +10,8 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "CustomKnobLookAndFeel.h"
+
 
 //==============================================================================
 /**
@@ -56,6 +58,12 @@ private:
     
     std::vector<std::unique_ptr<SliderAttachment>> sliderAttachments;
     std::vector<std::unique_ptr<ButtonAttachment>> buttonAttachments;
+    
+    std::unique_ptr<CustomKnobLookAndFeel> sensitivityKnobLAF;
+    std::unique_ptr<CustomKnobLookAndFeel> maxFreqKnobLAF;
+    std::unique_ptr<CustomKnobLookAndFeel> minFreqKnobLAF;
+    std::unique_ptr<CustomKnobLookAndFeel> resonanceKnobLAF;
+
     
     float refWidth = 600.f;
     float refHeight = 800.f;

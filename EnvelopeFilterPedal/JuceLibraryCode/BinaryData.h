@@ -32,8 +32,29 @@ namespace BinaryData
     extern const char*   sweepDirection_sprite_png;
     const int            sweepDirection_sprite_pngSize = 38756;
 
+    extern const char*   bypass_switch_0001_png;
+    const int            bypass_switch_0001_pngSize = 19625;
+
+    extern const char*   bypass_switch_0002_png;
+    const int            bypass_switch_0002_pngSize = 19693;
+
+    extern const char*   filterType_0001_png;
+    const int            filterType_0001_pngSize = 19640;
+
+    extern const char*   filterType_0002_png;
+    const int            filterType_0002_pngSize = 19635;
+
+    extern const char*   filterType_0003_png;
+    const int            filterType_0003_pngSize = 19754;
+
+    extern const char*   sweepDirection_0001_png;
+    const int            sweepDirection_0001_pngSize = 19794;
+
+    extern const char*   sweepDirection_0002_png;
+    const int            sweepDirection_0002_pngSize = 19848;
+
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 8;
+    const int namedResourceListSize = 15;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
