@@ -88,7 +88,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     //sensitivity.setBounds(400 - 50, 630 - 50, 100, 100); // (350, 580, 100, 100)
     sensitivity.setBounds(175, 505, 250, 250);
     sensitivity.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    sensitivity.setRange(-18.f, 6.f, .1f);
+    sensitivity.setRange(0.f, 2.f, 0.01f );
     sensitivity.onValueChange = [this] {
         audioProcessor.sensitivitySliderChanged(sensitivity.getValue());
     };
@@ -100,7 +100,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
 
     minFreq.setBounds(50, 420, 250, 250);
     minFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    minFreq.setRange(-18.f, 6.f, .1f);
+    minFreq.setRange(20.f, 750.f,.1f);
     minFreq.onValueChange = [this](){
         audioProcessor.minFreqSliderChanged(minFreq.getValue());
     };
@@ -111,7 +111,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     
     maxFreq.setBounds(300, 420, 250, 250);
     maxFreq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    maxFreq.setRange(-18.f, 6.f, .1f);
+    maxFreq.setRange(1000.f, 20000.f, .1f);
     maxFreq.onValueChange = [this](){
         audioProcessor.maxFreqSliderChanged(maxFreq.getValue());
     };
@@ -122,7 +122,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
     
     resonance.setBounds(175, 345, 250, 250);
     resonance.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    resonance.setRange(-18.f, 6.f, .1f);
+    resonance.setRange(0.5f,   5.0f,  .01f);
     resonance.onValueChange = [this](){
         audioProcessor.resonanceSliderChanged(resonance.getValue());
     };

@@ -36,7 +36,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout EnvelopeFilterPedalAudioProc
     
     // Sliders
     
-    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"SensitivityKnob",1}),"Sensitivity",-18.f,6.f,0.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"SensitivityKnob",1}),"SensitivityKnob",-18.f,6.f,0.f));
       
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"MaxFreqKnob",1}),"MaxFreq",1000.f,20000.f,4000.f));
     
@@ -175,6 +175,7 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     minFreq = minFreqSliderValue.load();
     maxFreq = maxFreqSliderValue.load();
     resonance = resonanceSliderValue.load();
+    filter.setFilterType(filterType);
     
     int filterTypeIndex = (int)apvts.getRawParameterValue("FilterType")->load();
 
@@ -191,7 +192,7 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     
     filter.setFreq(freqValue);
     filter.setQ(resonance);
-    filter.setFilterType(filterType);
+    
     
     
     //float envelopeValue = envelope.calculatePeak(buffer, 0, N, peakAlpha);      // Change to togglable switch
@@ -201,7 +202,7 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
         
     };
     
-    float adjustedEnv = envelopeValue * sensitivity;
+    float adjustedEnv = envelopeValue * currentSensitivity;
     
     float sweepUp = apvts.getRawParameterValue("SweepDirectionButton")->load();
 
