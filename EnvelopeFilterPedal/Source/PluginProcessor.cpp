@@ -48,11 +48,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout EnvelopeFilterPedalAudioProc
     
     params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"BypassButton",1}),"Bypass",false));
     
-    params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"SweepDirectionButton",1}),"SweepDirection",false));
+    params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"SweepDirectionButton",1}),"SweepDirection",true));
     
     //params.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID({"FilterType",1}),"FilterType",false)); // Make into a 3 stage slider eventually
     
-    params.push_back(std::make_unique<juce::AudioParameterInt>("FilterType", "Filter Type", 0, 2, 0));
+    params.push_back(std::make_unique<juce::AudioParameterInt>("FilterType", "Filter Type", 0, 2, 2));
 
     
     return {params.begin(),params.end()};
@@ -202,7 +202,7 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
         
     };
     
-    float adjustedEnv = envelopeValue * sensitivity;
+    float adjustedEnv = envelopeValue * currentSensitivity;
     
     float sweepUp = apvts.getRawParameterValue("SweepDirectionButton")->load();
 

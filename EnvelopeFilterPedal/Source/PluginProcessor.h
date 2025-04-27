@@ -128,12 +128,12 @@ private:
     
     float smoothedCutoff[2] = {0.f};
     
-    std::atomic<float> sensitivitySliderValue;
-    std::atomic<float> resonanceSliderValue;
-    std::atomic<float> maxFreqSliderValue;
-    std::atomic<float> minFreqSliderValue;
+    std::atomic<float> sensitivitySliderValue = SENSITIVITY_DEFAULT;
+    std::atomic<float> resonanceSliderValue = RESONANCE_DEFAULT;
+    std::atomic<float> maxFreqSliderValue = MAX_DEFAULT;
+    std::atomic<float> minFreqSliderValue = MIN_DEFAULT;
     
-    std::atomic<bool> isBypassed{BYPASSED_DEFAULT};
+    std::atomic<bool> isBypassed = BYPASSED_DEFAULT;
     
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();

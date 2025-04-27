@@ -74,7 +74,7 @@ EnvelopeFilterPedalAudioProcessorEditor::EnvelopeFilterPedalAudioProcessorEditor
 
     filterType.setLookAndFeel(filterSwitchLAF);
     filterType.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
-    filterType.setRange(0, 2, 1);
+    filterType.setRange(0, 2, 2);
     filterType.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     filterType.setBounds(175, 250, 250, 250);
     addAndMakeVisible(filterType);
