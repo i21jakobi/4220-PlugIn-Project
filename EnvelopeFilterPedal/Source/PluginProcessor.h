@@ -133,7 +133,7 @@ private:
     std::atomic<float> maxFreqSliderValue;
     std::atomic<float> minFreqSliderValue;
     
-    std::atomic<bool> isBypassed;
+    std::atomic<bool> isBypassed{BYPASSED_DEFAULT};
     
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();

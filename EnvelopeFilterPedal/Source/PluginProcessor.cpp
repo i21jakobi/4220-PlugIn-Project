@@ -36,9 +36,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout EnvelopeFilterPedalAudioProc
     
     // Sliders
     
-    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"SensitivityKnob",1}),"SensitivityKnob",-18.f,6.f,0.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"SensitivityKnob",1}),"SensitivityKnob",0.f,2.f,1.f));
       
-    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"MaxFreqKnob",1}),"MaxFreq",1000.f,20000.f,4000.f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"MaxFreqKnob",1}),"MaxFreq",1000.f,20000.f,10000.f));
     
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID({"MinFreqKnob",1}),"MinFreq",20.f,750.f,50.f));
     
@@ -215,7 +215,7 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     {
         auto* channelData = buffer.getWritePointer (channel);
         
-        int count = 0;
+        //int count = 0;
         for (int n = 0; n < N; ++n){
             smoothedCutoff[channel] = 0.999f * smoothedCutoff[channel] + 0.001f * cutoffFreq;
             
