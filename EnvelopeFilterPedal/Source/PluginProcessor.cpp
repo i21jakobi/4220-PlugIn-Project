@@ -180,9 +180,9 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
     int filterTypeIndex = (int)apvts.getRawParameterValue("FilterType")->load();
 
     switch (filterTypeIndex) {
-        case 0: filter.setFilterType(Biquad::FilterType::LPF); break;
+        case 0: filter.setFilterType(Biquad::FilterType::HPF); break;
         case 1: filter.setFilterType(Biquad::FilterType::BPF1); break;
-        case 2: filter.setFilterType(Biquad::FilterType::HPF); break;
+        case 2: filter.setFilterType(Biquad::FilterType::LPF); break;
     }
   
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
@@ -202,7 +202,7 @@ void EnvelopeFilterPedalAudioProcessor::processBlock (juce::AudioBuffer<float>& 
         
     };
     
-    float adjustedEnv = envelopeValue * currentSensitivity;
+    float adjustedEnv = envelopeValue * sensitivity;
     
     float sweepUp = apvts.getRawParameterValue("SweepDirectionButton")->load();
 
