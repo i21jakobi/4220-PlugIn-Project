@@ -203,4 +203,11 @@ void Biquad::updateCoefficients()
             a2 = 1.0f - alpha;
             break;
     }
+    
+    b0 /= a0;
+    b1 /= a0;
+    b2 /= a0;
+    a1 /= a0;
+    a2 /= a0;
+    a0 = 1.0f;
 };
