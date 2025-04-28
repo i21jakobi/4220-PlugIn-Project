@@ -4,6 +4,8 @@
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="l3Kh25" name="EnvelopeFilterPedal">
     <GROUP id="{A029B05F-C05D-FE6A-1C7A-DE113CAA4F11}" name="Source">
+      <FILE id="GczEWT" name="ParameterTypes.h" compile="0" resource="0"
+            file="Source/ParameterTypes.h"/>
       <FILE id="ongOOj" name="CustomKnobLookAndFeel.h" compile="0" resource="0"
             file="Source/CustomKnobLookAndFeel.h"/>
       <GROUP id="{941B9FBA-79DB-DDCA-A192-1EBBB7B59241}" name="Body">

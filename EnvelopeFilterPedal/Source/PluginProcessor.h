@@ -11,6 +11,8 @@
 #include <JuceHeader.h>
 #include "Biquad.h"
 #include "EnvelopeFollower.h"
+#include "ParameterTypes.h"
+
 
 //==============================================================================
 /**
